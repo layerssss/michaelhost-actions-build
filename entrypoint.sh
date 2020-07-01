@@ -16,7 +16,10 @@ docker build \
 docker push \
   $IMAGE
 
+url=${INPUT_MICHAELHOST_WEBHOOK_URL}/image\?repoName\=${INPUT_REGISTRY}/${INPUT_IMAGE_NAME}\&tag\=${INPUT_IMAGE_TAG}
+echo "POST $url"
 curl \
   --fail \
   -H "Authorization: Bearer ${INPUT_MICHAELHOST_SECRET}" \
-  -X POST ${INPUT_MICHAELHOST_WEBHOOK_URL}/image\?repoName\=${INPUT_IMAGE_NAME}\&tag\=${INPUT_IMAGE_TAG}
+  -X POST \
+  $url
